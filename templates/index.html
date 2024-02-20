@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>简单云盘-首页</title>
+    <title>代码海洋网盘</title>
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
     <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
     <script src="/static/layui/layui.js"></script>
@@ -38,29 +38,43 @@
     </script>
 </head>
 <body>
-    <div class="h1">
-    <h1>简单云盘-首页</h1>
-    {% if username %}
-        <h2>欢迎，{{ username }}！</h2>
-        <h3>文件列表：</h3>
-        <ul>
-            {% for file in files %}
-                <li>{{ file }} <a href="/download/{{ username }}/{{ file }}">直接下载</a> <a href="/delete/{{ username }}/{{ file }}">永久删除</a> <a href="/viewer/{{ username }}/{{ file }}">在线浏览</a></li>
-            {% endfor %}
-        </ul>
-        <h3>上传文件：</h3>
-        <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
-            <input type="submit" value="上传">
-        </form>
-        <div class="layui-progress layui-progress-big " lay-showpercent="true">
-            <div id="progress-bar" class="layui-progress-bar" lay-percent="0%" style="width: 0%;"></div>
-        </div>
-        <h3>退出：</h3>
-        <a href="/logout">退出登录</a>
-    {% else %}
-        <p>请先<a href="/login">登录</a>。</p>
-    {% endif %}
+    <ul class="layui-nav layui-nav-tree layui-nav-side">
+        <li class="layui-nav-item layui-this"><a href="/">代码海洋硬盘</a></li>
+        <li class="layui-nav-item"><a href="/files">文件列表</a></li>
+        <li class="layui-nav-item"><a href="/">文件上传</a></li>
+        <li class="layui-nav-item"><a href="/">用户信息</a></li>
+        <li class="layui-nav-item"><a href="/">关于网盘</a></li>
+    </ul>
+    <script>
+    layui.use(function(){
+      var element = layui.element;
+      element.render('nav');
+    });
+    </script>
+    <div class="layui-body">
+      <div style="padding: 15px;">
+        {% if username %}
+            <h2>欢迎，{{ username }}！</h2>
+            <h3>文件列表：</h3>
+            <ul>
+                {% for file in files %}
+                    <li>{{ file }} <a href="/download/{{ username }}/{{ file }}">直接下载</a> <a href="/delete/{{ username }}/{{ file }}">永久删除</a> <a href="/viewer/{{ username }}/{{ file }}">在线浏览</a></li>
+                {% endfor %}
+            </ul>
+            <h3>上传文件：</h3>
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <input type="submit" value="上传">
+            </form>
+            <div class="layui-progress layui-progress-big " lay-showpercent="true">
+                <div id="progress-bar" class="layui-progress-bar" lay-percent="0%" style="width: 0%;"></div>
+            </div>
+            <h3>退出：</h3>
+            <a href="/logout">退出登录</a>
+        {% else %}
+            <p>请先<a href="/login">登录</a>。</p>
+        {% endif %}
+      </div>
     </div>
 </body>
 </html>

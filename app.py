@@ -155,12 +155,23 @@ def index():
     if 'username' in session:
         username = session['username']
         user_dir = os.path.join(data_dir, username)
-        
         if not os.path.exists(user_dir):
             os.makedirs(user_dir)
-        
         files = os.listdir(user_dir)
         return render_template('index.html', username=username, files=files)
+    else:
+        return redirect('/login')
+
+# 文件列表
+@app.route('/files')
+def files():
+    if 'username' in session:
+        username = session['username']
+        user_dir = os.path.join(data_dir, username)
+        if not os.path.exists(user_dir):
+            os.makedirs(user_dir)
+        files = os.listdir(user_dir)
+        return render_template('files.html', username=username, files=files)
     else:
         return redirect('/login')
 
@@ -213,32 +224,6 @@ def viewer(username,filename):
         # 返回不支持在线浏览的提示信息
         return render_template('not_viewer.html')
 
-"""多人在线浏览
-
-# 多人在线浏览
-@app.route('/viewers/<username>/<path:filename>')
-def viewers(username, filename):
-    # 检查文件类型
-    # if filename.endswith(('.mp4', '.mp3', '.txt', '.pdf')):
-    if filename.endswith(('.mp4', '.mp3', '.png', '.jpg', ".ico", ".avif", ".svg")):
-        # 返回在线浏览页面
-        return render_template('viewer.html', username=username, filename=filename)
-    else:
-        # 返回不支持在线浏览的提示信息
-        return render_template('not_viewer.html')
-
-@app.route('/downloads/<username>/<filename>')
-def download2s(username, filename):
-    user_dir = os.path.join(data_dir, username)
-    file_path = os.path.join(user_dir, filename)
-
-    if os.path.isfile(file_path):
-        logging.info(f"File '{filename}' downloaded by user '{username}'")
-        return send_from_directory(user_dir, filename, as_attachment=True)
-    else:
-        return render_template('file_does_not_exist.html')
-"""
-
 # 下载文件
 @app.route('/download/<username>/<filename>')
 def download(username, filename):
@@ -276,7 +261,7 @@ def delete(username, file_path):
                 shutil.rmtree(abs_file_path)
                 logging.info(f"Folder '{file_path}' deleted by user '{username}'")
     
-    return redirect('/')
+    return redirect('/files')
 
 if __name__ == '__main__':
     app.run(ip_,numip)

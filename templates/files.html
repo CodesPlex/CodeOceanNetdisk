@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>代码海洋网盘</title>
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+    <script src="/static/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <ul class="layui-nav layui-nav-tree layui-nav-side">
+        <li class="layui-nav-item"><a href="/">代码海洋硬盘</a></li>
+        <li class="layui-nav-item layui-this"><a href="/files">文件列表</a></li>
+        <li class="layui-nav-item"><a href="/">文件上传</a></li>
+        <li class="layui-nav-item"><a href="/">用户信息</a></li>
+        <li class="layui-nav-item"><a href="/">关于网盘</a></li>
+    </ul>
+    <script>
+    layui.use(function(){
+      var element = layui.element;
+      element.render('nav');
+    });
+    </script>
+
+    <div class="layui-body">
+      <div style="padding: 15px;">
+        <table class="layui-table">
+          <colgroup>
+            <col width="150">
+            <col width="150">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>文件名称</th>
+              <th>文件下载</th>
+              <th>文件删除</th>
+              <th>文件浏览</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if files %}
+            {% for file in files %}
+            <tr>
+              <td>{{ file }}</td>
+              <td><a href="/download/{{ username }}/{{ file }}">直接下载</a></td>
+              <td><a href="/delete/{{ username }}/{{ file }}">永久删除</a></td>
+              <td><a href="/viewer/{{ username }}/{{ file }}">在线浏览</a></td>
+            </tr>
+            {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="4" style="text-align: center; font-weight: bold;">暂无文件</td>
+          </tr>
+          {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</body>
+</html>
