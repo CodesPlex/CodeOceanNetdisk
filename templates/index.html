@@ -12,7 +12,7 @@
             $('#upload-form').submit(function(event) {
                 event.preventDefault(); // 阻止表单默认提交行为
                 var formData = new FormData(this);
-                
+
                 $.ajax({
                     url: '/upload',
                     type: 'POST',
@@ -53,7 +53,9 @@
             <input type="file" name="file">
             <input type="submit" value="上传">
         </form>
-        <div id="progress-bar" style="width: 0%; background-color: #3cff00; height: 24px;"></div>
+        <div class="layui-progress layui-progress-big " lay-showpercent="true">
+            <div id="progress-bar" class="layui-progress-bar" lay-percent="0%" style="width: 0%;"></div>
+        </div>
         <h3>退出：</h3>
         <a href="/logout">退出登录</a>
     {% else %}
