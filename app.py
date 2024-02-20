@@ -1,11 +1,11 @@
 import os
 import json
 import shutil
-import logging
 import datetime
 import re
 import hashlib
 from flask import *
+from flask.logging import *
 
 # pip install pymysql
 # pyinstaller --onefile --add-data "templates/*;templates/" app.py
