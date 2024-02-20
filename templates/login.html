@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>简单云盘-登录</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .h1{
+            text-align: center;
+        }
+    </style>
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+</head>
+<body>
+    <div class="h1">
+    <h1>简单云盘-登录</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="/login" method="post">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">密 码 ：</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="登录">
+    </form>
+    <p>没有账号？<a href="/register">点击注册</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>在线浏览</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .h1 {
+            text-align: center;
+        }
+
+        .viewer {
+            border: none;
+            border: 1px solid #ccc;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="h1">
+        <h1>在线浏览</h1>
+        <div  class="viewer">
+            <!-- 根据文件类型选择不同的浏览组件 -->
+            {% if filename.endswith('.mp4') %}
+                <video src="/download/{{ username }}/{{ filename }}" controls autoplay></video>
+            {% elif filename.endswith('.mp3') %}
+                <audio src="/download/{{ username }}/{{ filename }}" controls autoplay></audio>
+            <!--
+            {% elif filename.endswith('.txt') %}
+                <iframe src="/download/{{ username }}/{{ filename }}" width="100%" height="100%"></iframe>
+            {% elif filename.endswith('.pdf') %}
+                <iframe src="/download/{{ username }}/{{ filename }}" width="100%" height="100%"></iframe>
+            -->
+            {% elif filename.endswith('.png') %}
+                <img src="/download/{{ username }}/{{ filename }}">
+            {% elif filename.endswith('.jpg') %}
+                <img src="/download/{{ username }}/{{ filename }}">
+            {% elif filename.endswith('.ico') %}
+                <img src="/download/{{ username }}/{{ filename }}">
+            {% elif filename.endswith('.avif') %}
+                <img src="/download/{{ username }}/{{ filename }}">
+            {% elif filename.endswith('.svg') %}
+                <img src="/download/{{ username }}/{{ filename }}">
+            <!--
+            {% elif filename.endswith('.html') %}
+                <iframe src="/download/{{ username }}/{{ filename }}">
+            -->
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
